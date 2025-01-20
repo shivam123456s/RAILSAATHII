@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editable Buttons with Persistent Changes</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script> <!-- External JS -->
+</head>
+<body>
+  <div class="header">LINK FOR DATA</div>
+    <img id="logo" src="5a89a8f52e7e9d0001f0675e_iNurture-transparent-500x250-499x249.png" class="logo" alt="Logo">
+  
+  <!-- The container where buttons will be dynamically loaded -->
+  <div class="button-container" id="buttonContainer">
+    <!-- Buttons will be dynamically added by JS -->
+  </div>
+
+  <!-- Modal for editing button label and link -->
+  <div class="overlay" id="overlay"></div>
+  <div class="modal" id="modal">
+    <input type="text" id="buttonLabel" placeholder="Button Label">
+    <input type="text" id="buttonLink" placeholder="Button Link">
+    <button id="saveChanges">Save Changes</button>
+  </div>
+</body>
+</html>
