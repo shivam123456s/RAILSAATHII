@@ -14,18 +14,18 @@ body {
   font-weight: bold;
 }
 
-.logo{
+.logo {
   width: 100px;
   height: 100px;
-  
 }
 
 .button-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* 5 columns */
+  grid-template-rows: repeat(6, auto); /* 6 rows */
+  gap: 10px; /* Space between buttons */
   margin: 20px;
+  justify-items: center; /* Center buttons inside grid cells */
 }
 
 .button {
@@ -37,6 +37,8 @@ body {
   cursor: pointer;
   font-size: 16px;
   position: relative;
+  width: 100%; /* Make the button take up full width of the cell */
+  box-sizing: border-box;
 }
 
 .button:hover {
