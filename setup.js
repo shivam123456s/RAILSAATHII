@@ -9,6 +9,7 @@ const rl = readline.createInterface({
 });
 
 console.log("Welcome to the Server Setup!");
+console.log("MADE BY SHIVAM SWARAJ");
 
 rl.question('Please provide the location of your project folder: ', (folderPath) => {
   // Validate the folder path
