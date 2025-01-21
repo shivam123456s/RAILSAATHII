@@ -1,8 +1,24 @@
+const fs = require('fs');
+const path = require('path');
+
+const configPath = path.join(__dirname, 'config.json');
+
+// Check if the config exists
+if (!fs.existsSync(configPath)) {
+  console.error("Error: Configuration file not found. Please run setup.js first.");
+  process.exit(1);
+}
+
+const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+const folderPath = config.folderPath;
+
+// Use the folderPath in your application logic
+console.log(`Starting the server with folder path: ${folderPath}`);
 // server.js
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const fs = require("fs");
+
 
 const app = express();
 const PORT = 5000;  // Ensure this is the same as your frontend
