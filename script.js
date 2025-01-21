@@ -36,7 +36,7 @@ let clickTimer = null;
 
 // Load buttons from the server or use fallback data
 const loadButtons = () => {
-  fetch('http://localhost:5500/buttons')
+  fetch('http://localhost:5000/buttons')
     .then(response => response.json())
     .then(buttons => {
       buttonContainer.innerHTML = ''; // Clear the existing buttons
@@ -96,6 +96,8 @@ saveChanges.addEventListener('click', () => {
   };
 
   // Send updated button data to the server using fetch
+
+
   fetch(`http://localhost:5000/buttons/${updatedButton.id}`, {
     method: 'PUT',
     headers: {
@@ -105,18 +107,15 @@ saveChanges.addEventListener('click', () => {
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log(data.message);
-      loadButtons(); // Reload buttons from the server after update
+      console.log("Updated Data:", data);  // Log the data returned from the server
+      // After updating, reload buttons from the server to get the latest data
+      loadButtons(); 
       modal.style.display = 'none';
       overlay.style.display = 'none';
     })
     .catch((error) => console.error('Error updating button:', error));
 });
 
-overlay.addEventListener('click', () => {
-  modal.style.display = 'none';
-  overlay.style.display = 'none';
-});
 
 // Initialize
 loadButtons(); // Initially load buttons from the server or fallback to initialButtons
