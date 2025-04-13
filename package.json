@@ -1,9 +1,0 @@
-{
-    "name": "frontend",
-    "version": "1.0.0",
-    "scripts": {
-      "start": "live-server --port=5500"
-    },
-    "proxy": "http://localhost:5000"
-  }
-  
