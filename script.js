@@ -48,6 +48,8 @@ document.getElementById('user-message').addEventListener('keypress', function(e)
 
 // Emergency button functionality
 document.getElementById('emergency-button').addEventListener('click', function() {
+    const sound = document.getElementById('alert-sound');
+    sound.play();
     alert('Emergency assistance requested! Help is on the way.');
 });
 
