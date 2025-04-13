@@ -1,3 +1,123 @@
+// Voice Assistant Implementation
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+const SpeechSynthesisUtterance = window.SpeechSynthesisUtterance;
+const synth = window.speechSynthesis;
+
+// Initialize speech recognition
+const recognition = new SpeechRecognition();
+recognition.continuous = false;
+recognition.interimResults = false;
+recognition.lang = 'en-US';
+
+// Voice assistant state
+let isVoiceEnabled = false;
+let isListening = false;
+
+// DOM elements
+const voiceButton = document.getElementById('voice-button');
+const voiceStatus = document.getElementById('voice-status');
+const voiceModal = document.getElementById('voice-modal');
+const enableVoiceBtn = document.getElementById('enable-voice');
+const disableVoiceBtn = document.getElementById('disable-voice');
+const voiceUI = document.getElementById('voice-ui');
+const voiceInput = document.getElementById('voice-input');
+const voiceOutput = document.getElementById('voice-output');
+
+// Initialize voice button state
+window.addEventListener('load', () => {
+    // Only show modal if voice hasn't been enabled/disabled before
+    if (localStorage.getItem('voicePreference') === null) {
+        voiceModal.style.display = 'flex';
+        voiceButton.disabled = true;
+        voiceButton.classList.add('disabled');
+        voiceStatus.textContent = 'Enable voice in modal';
+    }
+});
+
+// Voice modal handlers
+enableVoiceBtn.addEventListener('click', () => {
+    voiceModal.style.display = 'none';
+    isVoiceEnabled = true;
+    voiceButton.disabled = false;
+    voiceButton.classList.remove('disabled');
+    localStorage.setItem('voicePreference', 'enabled');
+    speak("Voice assistant enabled. Press the microphone button to speak.");
+});
+
+disableVoiceBtn.addEventListener('click', () => {
+    voiceModal.style.display = 'none';
+    isVoiceEnabled = false;
+    voiceButton.disabled = true;
+    voiceButton.classList.add('disabled');
+    localStorage.setItem('voicePreference', 'disabled');
+});
+
+// Toggle voice listening
+voiceButton.addEventListener('click', () => {
+    if (!isVoiceEnabled) return;
+    
+    if (isListening) {
+        stopListening();
+    } else {
+        startListening();
+    }
+});
+
+function startListening() {
+    isListening = true;
+    voiceButton.classList.add('listening');
+    voiceStatus.textContent = 'Listening...';
+    voiceUI.style.display = 'block';
+    voiceInput.textContent = '';
+    recognition.start();
+}
+
+function stopListening() {
+    isListening = false;
+    voiceButton.classList.remove('listening');
+    voiceStatus.textContent = 'Ready';
+    recognition.stop();
+}
+
+// Speech recognition handlers
+recognition.onresult = (event) => {
+    const transcript = event.results[0][0].transcript;
+    voiceInput.textContent = transcript;
+    processVoiceCommand(transcript);
+};
+
+recognition.onerror = (event) => {
+    console.error('Speech recognition error', event.error);
+    voiceStatus.textContent = 'Error: ' + event.error;
+    stopListening();
+};
+
+// Process voice command
+function processVoiceCommand(command) {
+    // Display user voice input as chat bubble
+    addMessage(command, 'user-message');
+
+    // Fixed response from the assistant
+    const response = "I'm still under development 🛠️, but soon I'll be able to help you with live train info.";
+    voiceOutput.textContent = response;
+    speak(response);
+    
+    // Simulate a delay before stopping listening
+    setTimeout(stopListening, 2000);
+}
+
+// Speak text using speech synthesis
+function speak(text) {
+    if (synth.speaking) {
+        synth.cancel();
+    }
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.rate = 1;
+    utterance.pitch = 1;
+    synth.speak(utterance);
+}
+
 // Simple Chatbot Implementation
 document.getElementById('chat-button').addEventListener('click', function() {
     const chatContainer = document.getElementById('chat-container');
