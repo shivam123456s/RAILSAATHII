@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>RailSathi AR Mode</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aframe/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.rawgit.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <style>
+        body { margin: 0; overflow: hidden; }
+        #back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: #2d2d90;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .desktop-message {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <button id="back-button" onclick="window.location.href='index.html'">← Back</button>
+    
+    <div id="desktopMessage" class="modal" style="display:none;">
+        <p>AR Mode works best on mobile! 📱</p>
+        <p>Scan this QR code to use AR on your phone:</p>
+        <img id="qr-code" src="" alt="Scan QR to open on mobile" />
+    </div>
+    
+    <div id="desktop-view" class="desktop-message">
+        <h2>AR Mode is only available on mobile devices</h2>
+        <p>Please scan this QR code to open the site on your phone:</p>
+        <img id="qr-code-desktop" src="" alt="QR Code">
+    </div>
+
+    <a-scene embedded arjs='sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
+        <a-marker preset="hiro">
+            <a-text value="Platform 1 ➡️" position="0 0.5 0" color="yellow" align="center"></a-text>
+            <a-box position="0 0.5 0" rotation="0 45 45" color="#2d2d90"></a-box>
+        </a-marker>
+        <a-entity camera></a-entity>
+    </a-scene>
+
+    <script>
+        // Check if on mobile device
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        
+        if (!isMobile) {
+            document.querySelector('a-scene').style.display = 'none';
+            document.querySelector('.desktop-message').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
