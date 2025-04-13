@@ -1,3 +1,51 @@
+// Simple Chatbot Implementation
+document.getElementById('chat-button').addEventListener('click', function() {
+    const chatContainer = document.getElementById('chat-container');
+    const isOpening = chatContainer.style.display !== 'flex';
+    chatContainer.style.display = isOpening ? 'flex' : 'none';
+    
+    if (isOpening) {
+        // Clear previous messages
+        document.getElementById('chat-messages').innerHTML = '';
+        // Show welcome message after slight delay
+        setTimeout(() => {
+            addMessage("👋 Hi! I'm RailSathi AI Assistant. I can help you with train information, AR guidance, and more. Just type your question below.", 'bot-message');
+        }, 300);
+    }
+});
+
+// Send message function
+function sendMessage() {
+    const input = document.getElementById('user-message');
+    const message = input.value.trim();
+    
+    if (message) {
+        addMessage(message, 'user-message');
+        input.value = '';
+        
+        // Simulate bot typing delay
+        setTimeout(() => {
+            addMessage("🚧 I'm currently under development. Please check back later.", 'bot-message');
+        }, 1500);
+    }
+}
+
+// Add message to chat
+function addMessage(text, className) {
+    const messagesContainer = document.getElementById('chat-messages');
+    const messageElement = document.createElement('div');
+    messageElement.className = `message ${className}`;
+    messageElement.textContent = text;
+    messagesContainer.appendChild(messageElement);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+}
+
+// Event listeners
+document.getElementById('send-message').addEventListener('click', sendMessage);
+document.getElementById('user-message').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') sendMessage();
+});
+
 // Emergency button functionality
 document.getElementById('emergency-button').addEventListener('click', function() {
     alert('Emergency assistance requested! Help is on the way.');
@@ -91,6 +139,3 @@ function checkARCompatibility() {
         alert('AR Mode is only available on mobile devices.');
     }
 }
-
-// Rest of the file remains unchanged...
-[Previous file content continues from here...]
