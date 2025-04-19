@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sign Up - RailSathi</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+        body {
+            background: 
+                linear-gradient(rgba(245, 245, 245, 0.9), rgba(245, 245, 245, 0.9)),
+                url('BHARAT TRAIN.jpg') center/cover no-repeat fixed;
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .signup-container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 450px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #2D2D90;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #333;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="password"],
+        select {
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+        .optional-fields {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .optional-fields > div {
+            flex: 1 1 45%;
+            display: flex;
+            flex-direction: column;
+        }
+        .checkbox-container {
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+        }
+        .checkbox-container input {
+            cursor: pointer;
+        }
+        .buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        button {
+            flex: 1;
+            padding: 12px;
+            background-color: #2D2D90;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #1a1a5a;
+        }
+        @media (max-width: 480px) {
+            .optional-fields > div {
+                flex: 1 1 100%;
+            }
+            .buttons {
+                flex-direction: column;
+            }
+            .buttons button {
+                flex: none;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <h2>Create Your RailSathi Account</h2>
+        <form id="signupForm">
+            <label for="fullName">Full Name</label>
+            <input type="text" id="fullName" name="fullName" required pattern="^[A-Za-z\s]{3,50}$" title="Only letters and spaces allowed, 3-50 characters" />
+            
+            <label for="email">Email ID</label>
+            <input type="email" id="email" name="email" required />
+            
+            <label for="mobile">Mobile Number</label>
+            <input type="tel" id="mobile" name="mobile" required pattern="^\d{10}$" title="Enter a valid 10-digit mobile number" />
+            
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required minlength="6" />
+            
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required minlength="6" />
+            
+            <div class="optional-fields">
+                <div>
+                    <label for="gender">Gender (Optional)</label>
+                    <select id="gender" name="gender">
+                        <option value="">Select</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="dob">Date of Birth (Optional)</label>
+                    <input type="date" id="dob" name="dob" />
+                </div>
+                <div>
+                    <label for="cityState">City/State (Optional)</label>
+                    <input type="text" id="cityState" name="cityState" />
+                </div>
+            </div>
+            
+            <div class="checkbox-container">
+                <input type="checkbox" id="terms" name="terms" required />
+                <label for="terms">I agree to the <a href="#" target="_blank">Terms & Conditions</a></label>
+            </div>
+            
+            <div class="buttons">
+                <button type="submit">Sign Up</button>
+                <button type="button" id="backToLogin">Back to Login</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            if (password !== confirmPassword) {
+                alert('Passwords do not match.');
+                return;
+            }
+            if (!document.getElementById('terms').checked) {
+                alert('You must agree to the Terms & Conditions.');
+                return;
+            }
+            alert('Signup form submitted. Implement registration logic.');
+        });
+
+        document.getElementById('backToLogin').addEventListener('click', function() {
+            window.location.href = 'login.html';
+        });
+    </script>
+</body>
+</html>
